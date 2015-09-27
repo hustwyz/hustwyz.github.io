@@ -4,7 +4,7 @@
  <title>云振的笔记</title>
  <link href="http://hustwyz.github.io/atom.xml" rel="self"/>
  <link href="http://hustwyz.github.io/"/>
- <updated>2015-09-28T00:49:53+08:00</updated>
+ <updated>2015-09-28T01:02:14+08:00</updated>
  <id>http://hustwyz.github.io</id>
  <author>
    <name>Wang Yunzhen</name>
@@ -111,15 +111,6 @@
 &lt;p&gt;1 &lt;br /&gt;4&lt;br /&gt;2&lt;br /&gt;3&lt;br /&gt; &lt;/p&gt;
 
 &lt;p&gt;大家可以自己分析一下执行的过程。&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Java和Python异常处理机制的不同</title>
-   <link href="http://hustwyz.github.io//2015/01/26/try_catch_finally/"/>
-   <updated>2015-01-26T00:00:00+08:00</updated>
-   <id>http://hustwyz.github.io/2015/01/26/try_catch_finally</id>
-   <content type="html">&lt;p&gt;对于try...catch...finally，大家都应该很熟悉，用法来也比较简单。但是最近看了一篇文章，讲Java里面异常处理的一个细节，就是在final&lt;/p&gt;
 </content>
  </entry>
  
