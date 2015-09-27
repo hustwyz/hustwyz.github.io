@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>云振的笔记</title>
+ <link href="http://hustwyz.github.io/atom.xml" rel="self"/>
+ <link href="http://hustwyz.github.io/"/>
+ <updated>2015-09-28T00:49:53+08:00</updated>
+ <id>http://hustwyz.github.io</id>
+ <author>
+   <name>Wang Yunzhen</name>
+   <email>hustwyz@gmail.com</email>
+ </author>
+
+ 
+ <entry>
+   <title>Java类初始化的大体顺序</title>
+   <link href="http://hustwyz.github.io//2015/09/27/java_class_init_sequence/"/>
+   <updated>2015-09-27T00:00:00+08:00</updated>
+   <id>http://hustwyz.github.io/2015/09/27/java_class_init_sequence</id>
+   <content type="html">&lt;p&gt;大学就开始用第三方博客写一些技术总结和想法，后来转战Wordpress，但都是写自己的心情想法较多，技术总结也不太多。这两年流行利用Github搭建个人博客，我的Github主页也建立了很久，但是一直没有开动写技术总结。从现在开始坚持写写技术总结吧，今天写第一篇。&lt;/p&gt;
+
+&lt;p&gt;前两天在微博上看别人分享携程的一道面试题。题目如下，说出输出的结果：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;public class Base {
+    private String baseName = &amp;quot;base&amp;quot;;
+    public Base() {
+        callName();
+    }
+    public void callName() {
+        System.out.println(baseName);
+    }
+
+    static class Sub extends Base {
+        private String baseName = &amp;quot;sub&amp;quot;;
+        public void callName() {
+            System.out.println (baseName) ;
+        }
+    }
+
+    public static void main(String[] args) {
+        Base b = new Sub();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;看到这个题目有点意思，因为刚不久，我们公司招聘的时候，我就问过来面试的一个类似的问题。虽然具体的代码不一样，但是考得点却是一样的，就是类初始化的大体顺序。&lt;/p&gt;
+
+&lt;p&gt;这个题目咋一看，很多人会以为输出结果是sub，我们先来分析创建Sub类实例时代码的执行过程：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;进入Sub类的构造函数&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Sub类分配内存&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;Base类的构造函数被隐式调用&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Base类的构造函数会调用Sub类的callName函数&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;执行Sub类的callName函数，打印Sub类的baseName变量的值&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;按照上面的分析，所以很多人以为结果是sub，但是实际的结果却是null，不信的话可以自己运行一下看看结果。&lt;/p&gt;
+
+&lt;p&gt;其实前面的分析基本都是对的，只是忽略了一个很重要的点：成员变量是在什么时候初始化的。&lt;/p&gt;
+
+&lt;p&gt;最后输出Sub类的baseName值的时候，baseName的值实际上不是sub，因为执行callName函数的时候baseName成员变量还没有被初始化，所以结果是null。&lt;/p&gt;
+
+&lt;p&gt;为什么会这样呢？这个涉及到创建类的实例的时候，类的执行顺序。抛开常量和类的静态变量、静态块的执行顺序不说（先执行父类的静态块、再执行子类的静态块）。实际上这里是先执行父类的构造函数，再进行子类的成员变量初始化的。父类成员变量初始化&amp;gt;父类构造函数&amp;gt;子类成员变量初始化&amp;gt;子类构造函数。加上类的成员变量初始化和构造函数的执行顺序，所以较完整的执行顺序是：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;进入Sub类的构造函数&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Sub类分配内存&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;进入Base类的构造函数&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Base类的成员变量初始化，baseName的值初始化为base&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Base类的构造函数体执行&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Base类的构造函数会调用Sub类的callName函数&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;执行Sub类的callName函数，打印Sub类的baseName变量的值&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Sub类的成员变量初始化，subName的值初始化为sub&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Sub类的构造函数体执行&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;所以最后总结一下：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;创建类实例时类的初始化顺序：父类成员变量初始化&amp;gt;父类构造函数&amp;gt;子类成员变量初始化&amp;gt;子类构造函数&lt;/li&gt;
+&lt;li&gt;尽量避免在类的构造函数里面调用需要被子类重写的函数&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;最后附上自己在面试的时候，考的题目：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;public class Sample {
+    static class A {
+        public A(String text) {
+            System.out.println(text);
+        }
+    }
+
+    static class B extends A {
+        A a2 = new A(&amp;quot;2&amp;quot;);    
+        static A a1 = new A(&amp;quot;1&amp;quot;);    
+        public B(String text){
+            super(text);
+            a2 = new A(&amp;quot;3&amp;quot;);
+        }
+    }
+
+    public static void main(String []args){
+        B b = new B(&amp;quot;4&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这个题目最后的结果是:&lt;/p&gt;
+
+&lt;p&gt;1 &lt;br /&gt;4&lt;br /&gt;2&lt;br /&gt;3&lt;br /&gt; &lt;/p&gt;
+
+&lt;p&gt;大家可以自己分析一下执行的过程。&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Java和Python异常处理机制的不同</title>
+   <link href="http://hustwyz.github.io//2015/01/26/try_catch_finally/"/>
+   <updated>2015-01-26T00:00:00+08:00</updated>
+   <id>http://hustwyz.github.io/2015/01/26/try_catch_finally</id>
+   <content type="html">&lt;p&gt;对于try...catch...finally，大家都应该很熟悉，用法来也比较简单。但是最近看了一篇文章，讲Java里面异常处理的一个细节，就是在final&lt;/p&gt;
+</content>
+ </entry>
+ 
+
+</feed>

@@ -1,0 +1,28 @@
+# Dependencies
+markdown:         redcarpet
+pygments:         true
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            云振的笔记 
+tagline:          Wang Yunzhen
+url:              http://hustwyz.github.io
+paginate:         1
+baseurl:          /
+author:
+  name:           Wang Yunzhen
+  url:            http://hustwyz.github.io
+  email:          hustwyz@gmail.com
+
+# Custom vars
+version:          1.0.0
+github:
+  repo:           https://github.com/hustwyz/hustwyz.github.io
+
+# 导航栏
+pages_list:
+        关于我:    '/about'
+        存档:      '/archive'
+        订阅:     '/atom.xml'

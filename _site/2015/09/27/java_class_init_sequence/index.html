@@ -10,7 +10,7 @@
 
   <title>
     
-      云振的笔记 &middot; Wang Yunzhen
+      Java类初始化的大体顺序 &middot; 云振的笔记
     
   </title>
 
@@ -47,18 +47,10 @@
         </h2>
       </div>
 
-      <div class="posts">
-  
-  <div class="post">
-    <h2 class="post-title">
-      <a href="/2015/09/27/java_class_init_sequence/">
-        Java类初始化的大体顺序
-      </a>
-    </h2>
-
-    <span class="post-date">27 Sep 2015</span>
-
-    <p>大学就开始用第三方博客写一些技术总结和想法，后来转战Wordpress，但都是写自己的心情想法较多，技术总结也不太多。这两年流行利用Github搭建个人博客，我的Github主页也建立了很久，但是一直没有开动写技术总结。从现在开始坚持写写技术总结吧，今天写第一篇。</p>
+      <div class="post">
+  <h2 class="post-title">Java类初始化的大体顺序</h2>
+  <span class="post-date">27 Sep 2015</span>
+  <p>大学就开始用第三方博客写一些技术总结和想法，后来转战Wordpress，但都是写自己的心情想法较多，技术总结也不太多。这两年流行利用Github搭建个人博客，我的Github主页也建立了很久，但是一直没有开动写技术总结。从现在开始坚持写写技术总结吧，今天写第一篇。</p>
 
 <p>前两天在微博上看别人分享携程的一道面试题。题目如下，说出输出的结果：</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">public class Base {
@@ -153,18 +145,40 @@
 
 <p>大家可以自己分析一下执行的过程。</p>
 
-  </div>
-  
 </div>
 
-<div class="pagination">
-  
-    <a class="pagination-item older" href="/page2">上一页</a>
-  
-  
-    <span class="pagination-item newer">下一页</span>
-  
+<div class="related">
+  <h3>相关文章</h3>
+  <ul class="related-posts">
+    
+      <li>
+        <h5>
+          <a href="/2015/01/26/try_catch_finally/">
+            Java和Python异常处理机制的不同
+            <small>26 Jan 2015</small>
+          </a>
+        </h5>
+      </li>
+    
+  </ul>
 </div>
+
+<!-- Add Disqus comments. -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+	  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	    var disqus_shortname = 'hustwyz'; // required: replace example with your forum shortname
+
+	      /* * * DON'T EDIT BELOW THIS LINE * * */
+	        (function() {
+			    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+				    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+				      })();
+			      </script>
+			      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+			      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
 
 
     <div class="footer">
